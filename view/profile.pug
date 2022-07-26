@@ -1,0 +1,37 @@
+extends base 
+
+block content 
+    #body
+        #profile-body
+            #profile-body-info
+                img(src="/img/girl.jpg", alt="A beautiful Girl")
+                .personal-info 
+                    h2 Jane Doe
+                    span Change your profile image
+                    p - Posted 12 books <br> - Joined at 2019
+                    #bio 
+                        p Keep smiling 😊😊
+            #profile-body-setting
+                #account-settings 
+                    form
+                        div 
+                            label(for="name") name 
+                            input(type="text" placeholder="Enter your new name" id="name")
+                        div
+                            button Update Name
+                        div 
+                            label(for="bio") Bio 
+                            textarea(name="bio", cols="50", rows="2" id="bio" placeholder="Enter your bio")
+                        div
+                            button Update Bio 
+                        div 
+                            label(for="password") current password 
+                            input(type="password" placeholder="Enter your current password")
+                        div 
+                            label(for="password") new password 
+                            input(type="password" placeholder="Enter your new password")
+                        div 
+                            label(for="name") confirm password 
+                            input(type="password" placeholder="Enter your password again")
+                        div
+                            button Change Password

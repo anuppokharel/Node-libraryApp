@@ -1,0 +1,41 @@
+extends base
+
+block content 
+    #body
+        h1 Add Book 
+
+        form(action="") 
+            div 
+                label(for="title") title 
+                input(type="text" name="title" id="title" placeholder="Enter book title")
+            div 
+                label(for="author") author 
+                input(type="text" name="author" id="author" placeholder="Enter book author")
+            div 
+                //- Atleast 125 letters 
+                label(for="summary") summary 
+                textarea(name="summary", cols="30", rows="3" id="summary" placeholder="Enter book summary")
+            div 
+                label(for="publication") publication 
+                input(type="text" name="publication" id="publication" placeholder="Enter book publication")
+            div 
+                label(for="image") book cover image 
+                input(type="file" name="image" id="image" style="border: none; margin: .5em 0 0 0;")
+            div 
+                label(for="price") price 
+                input(type="text" name="price" id="price" placeholder="Enter book price")
+            div 
+                label(for="page") page 
+                input(type="text" name="page" id="page" placeholder="Enter book page")
+            div 
+                label(for="edition") edition 
+                input(type="text" name="edition" id="edition" placeholder="Enter book edition")
+            div 
+                label(for="isbn") ISBN 
+                input(type="text" name="isbn" id="isbn" placeholder="Enter book ISBN")
+            div 
+                label(for="rating") rating 
+                input(type="text" name="rating" id="rating" placeholder="Enter book rating")
+            div
+                button Add Book
+            

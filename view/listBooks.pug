@@ -1,0 +1,23 @@
+extends base 
+
+block content 
+    #body 
+        .list-books-container
+            h3 List Books 
+            select
+                option Recent 
+                option Older 
+                option Popular
+        #horizental-card 
+            each book in books 
+                #dashboard-card 
+                    #book-info 
+                        h4= book.title
+                        p= book.summary
+                        span= `Author - ${book.author}`
+                    img(src=`/img/book/${book.image}`, alt=`${book.name}`)
+        #prev-next 
+            button Prev 
+            button Next
+        
+        
