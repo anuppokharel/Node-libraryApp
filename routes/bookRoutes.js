@@ -1,8 +1,15 @@
 const express = require('express');
 
 const bookController = require('../controller/bookController');
+const authController = require('../controller/authController');
 
 const router = express.Router();
+
+router
+  .route('/top-5-cheap')
+  .get(bookController.aliasCheapBooks, bookController.readAllBook);
+
+router.route('/book-stats').get(bookController.getBookStats);
 
 router
   .route('/')
@@ -11,8 +18,12 @@ router
 
 router
   .route('/:id')
-  .get(bookController.readBook)
+  .get(authController.protect, bookController.readBook)
   .patch(bookController.updateBook)
-  .delete(bookController.deleteBook);
+  .delete(
+    authController.protect,
+    authController.restrictTo('admin'),
+    bookController.deleteBook
+  );
 
 module.exports = router;
