@@ -1,0 +1,24 @@
+extends base
+
+include _rating
+
+block content
+    #body
+        #book-body-container 
+            .book-info
+                h4= book.title 
+                p Author: #{book.author}
+                p Publication: #{book.publication}
+                p Book Page: #{book.bookpage}
+                p Summary: #{book.summary}
+                p Edition: #{book.edition}
+                p ISBN: #{book.isbn}
+                p Price: #{book.price}
+                
+                h4 Ratings
+                .reviews
+                    each review in book.reviews
+                        +reviewCard(review)
+            .book-image 
+                img(src=`/img/book/${book.image}`, alt=`${book.title}`, style="height: 75%;")
+

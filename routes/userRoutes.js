@@ -4,8 +4,8 @@
 const express = require('express');
 
 // Node modules or user-defined modules
-const userController = require('../controller/userController');
 const authController = require('../controller/authController');
+const userController = require('../controller/userController');
 
 // Setting up router for routes
 
@@ -14,18 +14,26 @@ const router = express.Router();
 // Routes
 
 router.post('/login', authController.login);
+router.get('/logout', authController.logout);
 router.post('/signup', authController.signup);
 router.post('/forgot', authController.forgotPassword);
 router.patch('/reset/:token', authController.resetPassword);
-router.patch('/update', authController.protect, authController.updatePassword);
 
-router.patch('/updateMe', authController.protect, userController.updateMe);
-router.delete('/deleteMe', authController.protect, userController.deleteMe);
+// The routes after this require to be protected so we use authController.protect
 
-router
-  .route('/')
-  .get(userController.getAllUser)
-  .post(userController.createUser);
+router.use(authController.protect);
+
+router.patch('/update', authController.updatePassword);
+
+router.get('/me', userController.getMe, userController.getUser);
+router.patch('/updateMe', userController.updateMe);
+router.delete('/deleteMe', userController.deleteMe);
+
+// The routes after this is used by admin to manage the users
+
+router.use(authController.restrictTo('admin'));
+
+router.route('/').get(userController.getAllUser);
 
 router
   .route('/:id')

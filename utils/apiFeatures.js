@@ -1,11 +1,13 @@
 // Build query in class
 
+// A class is a template for creating objects
 class APIFeatures {
   constructor(query, queryString) {
-    this.query = query;
-    this.queryString = queryString;
+    this.query = query; // Book.find()
+    this.queryString = queryString; // req.query -> { sort: '1', limit: '10' }
   }
 
+  // Object are the instances of class
   filter() {
     // 1. a. Filtering our API
     const queryObj = { ...this.queryString };
@@ -46,7 +48,7 @@ class APIFeatures {
       const fields = this.queryString.fields.split(',').join(' ');
       this.query = this.query.select(fields);
     } else {
-      this.query = this.query.select('-__v');
+      this.query = this.query.select('-__v'); // - means don't show
     }
 
     return this;
@@ -60,13 +62,15 @@ class APIFeatures {
     const skip = (page - 1) * limit;
 
     this.query = this.query.skip(skip).limit(limit);
-    /* page=2&limit=5, 6-10 page 2, 11-15 page 2, 16-20 page 3 and so on,
-      if limit 5 means we need 5 content and skip means how much value we need
+    /* page=2&limit=5, 6-10 page 2, 11-15 page 3, 16-20 page 4 and so on,
+      if limit 5 then it means we need 5 content and skip means how much value we need
       to skip to reach another page suppose to reach page 2 we need 5 value and for
       3rd page we need to skip 10 value */
 
     return this;
   }
 }
+
+// Exports
 
 module.exports = APIFeatures;

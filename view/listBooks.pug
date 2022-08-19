@@ -11,9 +11,10 @@ block content
                 option Low to High (Price)
                 option High to Low (Price)
         #horizental-card 
-            each book in books 
+            each book in books
                 #dashboard-card 
                     #book-info 
+                        //- Buffered Code
                         h4= book.title
                         p= book.summary
                         span= `Author - ${book.author}`

@@ -67,6 +67,8 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+// Document middleware
+
 userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
 
@@ -120,6 +122,10 @@ userSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
+// Creating a model out of schema
+
 const User = mongoose.model('User', userSchema);
+
+// Exports
 
 module.exports = User;

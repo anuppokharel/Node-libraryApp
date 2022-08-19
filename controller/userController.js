@@ -1,9 +1,20 @@
+// Imports
+
+// User-defined modules
 const User = require('../model/userModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
+const factory = require('./handlerFactory');
+
+// Functions
+
 const filterObj = (obj, ...allowedFields) => {
-  const newObj = {};
+  // ...allowedFields select all the fields excluding the first object
+  const newObj = {}; // Defining a new object
+
+  /* Selecting the keys of object that we recieve and comparing if allowed key field includes those key field
+  and if it includes then adding those key value pair in new object */
   Object.keys(obj).forEach((el) => {
     if (allowedFields.includes(el)) newObj[el] = obj[el];
   });
@@ -11,35 +22,19 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-  });
-};
+// CRUD Operations
 
-exports.getAllUser = catchAsync(async (req, res, next) => {
-  const users = await User.find();
+exports.getAllUser = factory.readAll(User);
+exports.getUser = factory.readOne(User);
+exports.updateUser = factory.updateOne(User); // We cant use this to update password since it uses findIdAndUpdate which doesnt runs our security middleware
+exports.deleteUser = factory.deleteOne(User);
 
-  // Send response
-  res.status(200).json({
-    status: 'success',
-    results: users.length,
-    data: {
-      users,
-    },
-  });
-});
+// Extra (UpdateMe and DeleteMe)
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-  });
-};
+exports.getMe = (req, res, next) => {
+  req.params.id = req.user.id; // Doing this cause there is already id in protect middleware and faking so that the getUser route uses this id
 
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-  });
+  next();
 };
 
 exports.updateMe = catchAsync(async (req, res, next) => {
@@ -70,12 +65,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     },
   });
 });
-
-exports.deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-  });
-};
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });

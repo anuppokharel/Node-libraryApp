@@ -5,8 +5,12 @@
         i.fa-solid.fa-xmark(style='margin-right: 3px')
         i.fa-solid.fa-bars
         ul 
-            a(href='/'): li Dashboard
-            a(href='/add-book'): li Add Book
-            a(href='/list-book'): li List Book
-            a(href='/profile'): li Profile
-            a(href='/logout'): li Logout 
+            if user
+                a(href='/'): li Dashboard
+                a(href='/add-book'): li Add Book
+                a(href='/list-book'): li List Book
+                a(href='/profile'): li Profile
+                a.logout(href='/logout'): li Logout 
+            else
+                a(href='/login'): li Login
+                a(href='/register'): li Register

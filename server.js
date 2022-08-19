@@ -6,11 +6,13 @@ dotenv.config({ path: './config.env' });
 
 // Handling unhandled exception
 
-process.on('uncaughtException', (err) => {
-  console.log('Uncaught Exception! Shutting down...');
-  console.log(err.name, err.message);
-  process.exit(1);
-});
+if (process.env.NODE_ENV === 'production') {
+  process.on('uncaughtException', (err) => {
+    console.log('Uncaught Exception! Shutting down...');
+    console.log(err.name, err.message);
+    process.exit(1);
+  });
+}
 
 // Imports
 
