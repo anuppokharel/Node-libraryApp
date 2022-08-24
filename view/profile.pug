@@ -4,34 +4,34 @@ block content
     #body
         #profile-body
             #profile-body-info
-                img(src="/img/girl.jpg", alt="A beautiful Girl")
+                img(src=`/img/users/${user.image}`, alt=`Photo of ${user.name}`)
                 .personal-info 
-                    h2 Jane Doe
-                    span Change your profile image
+                    h2= user.name
+                    input.form__upload(type='file', accept="image/*", id='image', style="display: none")
+                    label(for='image', style="text-transform: none"): span Change your profile image
                     p - Posted 12 books <br> - Joined at 2019
-                    #bio 
-                        p Keep smiling 😊😊
+                    #bio_container
+                        p= user.bio
             #profile-body-setting
                 #account-settings 
-                    form
+                    form.form-user-data(style="padding-bottom: 0")
                         div 
                             label(for="name") name 
-                            input(type="text" placeholder="Enter your new name" id="name")
+                            input(type="text", value=`${user.name}`, id="name")
+                        div 
+                            label(for="bio") Bio
+                            input(type="text", value=`${user.bio}`, id="bio")
                         div
-                            button Update Name
+                            button(type='submit') Update Info 
+                    form.form-user-password(style="padding-top: 0")
                         div 
-                            label(for="bio") Bio 
-                            textarea(name="bio", cols="50", rows="2" id="bio" placeholder="Enter your bio")
+                            label(for="current_password") current password 
+                            input(type="password" placeholder="Enter your current password" id="current_password")
+                        div 
+                            label(for="new_password") new password 
+                            input(type="password" placeholder="Enter your new password" id="new_password")
+                        div 
+                            label(for="confirm_name") confirm password 
+                            input(type="password" placeholder="Enter your password again" id="confirm_password")
                         div
-                            button Update Bio 
-                        div 
-                            label(for="password") current password 
-                            input(type="password" placeholder="Enter your current password")
-                        div 
-                            label(for="password") new password 
-                            input(type="password" placeholder="Enter your new password")
-                        div 
-                            label(for="name") confirm password 
-                            input(type="password" placeholder="Enter your password again")
-                        div
-                            button Change Password
+                            button#btn--change-password(type="submit") Change Password

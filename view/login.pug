@@ -3,11 +3,12 @@ extends base
 block content 
     #body 
         form.login-form 
-            .username 
+            .email 
                 label(for="email") Email
                 input(type="text" name="email" placeholder="Enter your email." id="email")
             .password 
                 label(for="password") Password 
                 input(type="password" name="password" placeholder="Enter your password" id="password")
-            button(type="submit") Login 
-            p Create an account <a href="/register.pug" style="color: #7c7f85;">Register</a>
+            div
+                button(type="submit") Login 
+            p Create an account <a href="/register" style="color: #7c7f85;">Register</a>

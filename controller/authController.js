@@ -9,6 +9,7 @@ const { promisify } = require('util'); // Wraps node modules,functions,methods w
 const sendEmail = require('../utils/email');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+const userController = require('./userController');
 const User = require('../model/userModel');
 const { find } = require('../model/userModel'); //
 
@@ -53,14 +54,19 @@ const createSendToken = (user, statusCode, res) => {
 // CRUD Operations
 
 exports.signup = catchAsync(async (req, res, next) => {
-  const newUser = await User.create({
+  const signupFields = {
     name: req.body.name,
     email: req.body.email,
+    image: req.body.image,
+    bio: req.body.bio,
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
     passwordChangedAt: req.body.passwordChangedAt,
-    role: req.body.role,
-  });
+  };
+
+  if (req.file) signupFields.image = req.file.filename;
+
+  const newUser = await User.create(signupFields);
 
   createSendToken(newUser, 201, res);
 });
@@ -145,6 +151,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // Grant access to protected route
 
+  res.locals.user = currentUser; // Basically the template gets access to this/ Like passing data using render
   req.user = currentUser;
   next();
 });

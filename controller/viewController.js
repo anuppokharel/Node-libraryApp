@@ -1,5 +1,6 @@
 const Book = require('../model/bookModel');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 exports.getDashboard = async (req, res, next) => {
   // next is used to make catchAsync
@@ -43,10 +44,20 @@ exports.getBook = catchAsync(async (req, res, next) => {
     fields: 'review rating user',
   });
 
+  if (!book) {
+    return next(new AppError('There is no book with that name', 404)); // 404 not found
+  }
+
   res.status(200).render('book', {
     book,
   });
 });
+
+exports.getRegister = (req, res) => {
+  res.status(200).render('register', {
+    title: 'Register',
+  });
+};
 
 exports.getProfile = (req, res) => {
   res.status(200).render('profile', {

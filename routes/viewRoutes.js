@@ -5,13 +5,16 @@ const authController = require('../controller/authController');
 
 const router = express.Router();
 
-router.use(authController.isLoggedIn);
-
-router.get('/', viewController.getDashboard);
-router.get('/add-book', viewController.getAddBook);
-router.get('/list-book', viewController.getBooks);
-router.get('/profile', viewController.getProfile);
-router.get('/viewbook/:slug', viewController.getBook);
-router.get('/login', viewController.login);
+router.get('/', authController.isLoggedIn, viewController.getDashboard);
+router.get('/add-book', authController.isLoggedIn, viewController.getAddBook);
+router.get('/list-book', authController.isLoggedIn, viewController.getBooks);
+router.get('/register', viewController.getRegister);
+router.get('/profile', authController.protect, viewController.getProfile);
+router.get(
+  '/viewbook/:slug',
+  authController.isLoggedIn,
+  viewController.getBook
+);
+router.get('/login', authController.isLoggedIn, viewController.login);
 
 module.exports = router;

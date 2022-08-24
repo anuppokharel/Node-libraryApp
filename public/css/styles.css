@@ -254,7 +254,7 @@ form div button,
   text-align: start;
 }
 
-#bio p {
+#bio_container p {
   background-color: #fff;
   color: #000;
   height: 5em;
@@ -464,7 +464,7 @@ img {
     height: 10em;
     width: 10em;
   }
-  #bio p {
+  #bio_container p {
     background-color: #fff;
     color: #000;
     height: 5em;

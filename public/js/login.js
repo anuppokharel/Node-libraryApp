@@ -1,14 +1,13 @@
-import axios from 'axios';
+import axios from 'axios'; // Promise based HTTP client for browser and node.js
 import { showAlert } from './alert';
 
+// Login
+
 export const login = async (email, password) => {
-  console.log(email, password);
   try {
     const res = await axios({
-      // Promise based HTTP client for the browser and node.js
-      // res = result
       method: 'POST',
-      url: 'http://127.0.0.1:3000/user/login',
+      url: 'http://127.0.0.1:3000/api/user/login',
       data: {
         email,
         password,
@@ -27,11 +26,13 @@ export const login = async (email, password) => {
   }
 };
 
+// Logout
+
 export const logout = async () => {
   try {
     const res = await axios({
       method: 'GET',
-      url: 'http://127.0.0.1:3000/user/logout',
+      url: 'http://127.0.0.1:3000/api/user/logout',
     });
 
     if (res.data.status === 'success') location.reload(true); // setting true will force a reload from server but from the browser cache

@@ -15,7 +15,12 @@ const router = express.Router();
 
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
-router.post('/signup', authController.signup);
+router.post(
+  '/signup',
+  userController.uploadUserPhoto,
+  userController.resizeUserPhoto,
+  authController.signup
+);
 router.post('/forgot', authController.forgotPassword);
 router.patch('/reset/:token', authController.resetPassword);
 
@@ -26,7 +31,12 @@ router.use(authController.protect);
 router.patch('/update', authController.updatePassword);
 
 router.get('/me', userController.getMe, userController.getUser);
-router.patch('/updateMe', userController.updateMe);
+router.patch(
+  '/updateMe',
+  userController.uploadUserPhoto,
+  userController.resizeUserPhoto,
+  userController.updateMe
+);
 router.delete('/deleteMe', userController.deleteMe);
 
 // The routes after this is used by admin to manage the users

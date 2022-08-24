@@ -20,7 +20,8 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: [validator.isEmail, 'Please provide a valid email!'],
   },
-  photo: String,
+  image: { type: String, default: 'default.jpg' },
+  bio: { type: String, default: 'Hi, There!' },
   role: {
     type: String,
     enum: ['admin', 'moderator', 'user'],
@@ -43,7 +44,7 @@ const userSchema = new mongoose.Schema({
       message: 'Please provide a matching password!',
     },
   },
-  passwordChangedAt: { type: Date },
+  passwordChangedAt: { type: Date, select: false },
   passwordResetToken: String,
   passwordResetExpires: Date,
   active: {

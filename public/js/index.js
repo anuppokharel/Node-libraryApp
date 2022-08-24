@@ -39,3 +39,11 @@ cross.addEventListener('click', () => {
   list.classList.remove('active');
   bars.classList.add('active');
 });
+
+// Profile picture auto submit
+
+$(document).ready(function () {
+  $('.form__upload').on('change', function () {
+    $('.form-user-data div button').click();
+  });
+});

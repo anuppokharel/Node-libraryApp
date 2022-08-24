@@ -100,9 +100,9 @@ app.use((req, res, next) => {
 // Middleware
 
 app.use('/', viewRouter); // Mounting route
-app.use('/book', bookRouter);
-app.use('/user', userRouter);
-app.use('/review', reviewRouter);
+app.use('/api/book', bookRouter);
+app.use('/api/user', userRouter);
+app.use('/api/review', reviewRouter);
 
 // Undefined route handler
 app.all('*', (req, res, next) => {
