@@ -19,8 +19,6 @@ block content
                         p= book.summary
                         span= `Author - ${book.author}`
                     img(src=`/img/book/${book.image}`, alt=`${book.name}`)
-        #prev-next 
-            button Prev 
-            button Next
+        include ./_pagination.pug
         
         

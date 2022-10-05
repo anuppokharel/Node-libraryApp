@@ -1,8 +1,11 @@
 import { login, logout } from './login.js';
 import { register } from './register';
 import { updateSettings } from './updateSetting';
+import { addBook } from './addBook';
 
 // DOM Elements
+
+const addBookForm = document.querySelector('.addBook-form');
 
 const registerForm = document.querySelector('.register-form');
 const loginForm = document.querySelector('.login-form');
@@ -13,6 +16,25 @@ const updatePasswordForm = document.querySelector('.form-user-password');
 const changePasswordBtn = document.getElementById('btn--change-password');
 
 // Delegation
+
+if (addBookForm) {
+  addBookForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const form = new FormData();
+    form.append('title', document.getElementById('title').value);
+    form.append('author', document.getElementById('author').value);
+    form.append('summary', document.getElementById('summary').value);
+    form.append('publication', document.getElementById('publication').value);
+    form.append('image', document.getElementById('image').file[0]);
+    form.append('price', document.getElementById('price').value);
+    form.append('edition', document.getElementById('edition').value);
+    form.append('isbn', document.getElementById('isbn').value);
+    form.append('rating', document.getElementById('rating').value);
+
+    addBook(form);
+  });
+}
 
 if (registerForm) {
   registerForm.addEventListener('submit', async (e) => {

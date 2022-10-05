@@ -4,9 +4,9 @@ import { showAlert } from './alert';
 // Register
 
 export const register = async (data) => {
-  for (var pair of data.entries()) {
-    console.log(pair[0] + ', ' + pair[1]);
-  }
+  // for (var pair of data.entries()) {
+  //   console.log(pair[0] + ', ' + pair[1]);
+  // }
 
   try {
     const res = await axios({

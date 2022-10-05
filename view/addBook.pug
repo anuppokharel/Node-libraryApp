@@ -4,7 +4,7 @@ block content
     #body
         h1 Add Book 
 
-        form(action="") 
+        form.addBook-form
             div 
                 label(for="title") title 
                 input(type="text" name="title" id="title" placeholder="Enter book title")
@@ -14,7 +14,7 @@ block content
             div 
                 //- Atleast 125 letters 
                 label(for="summary") summary 
-                textarea(name="summary", cols="30", rows="3" id="summary" placeholder="Enter book summary")
+                input(name="summary", id="summary" placeholder="Enter book summary")
             div 
                 label(for="publication") publication 
                 input(type="text" name="publication" id="publication" placeholder="Enter book publication")
@@ -37,5 +37,5 @@ block content
                 label(for="rating") rating 
                 input(type="text" name="rating" id="rating" placeholder="Enter book rating")
             div
-                button Add Book
+                button(type="submit") Add Book
             

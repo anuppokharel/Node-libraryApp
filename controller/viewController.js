@@ -1,22 +1,60 @@
+const pagination = require('./utilities/functionFactory');
+
 const Book = require('../model/bookModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
-exports.getDashboard = async (req, res, next) => {
-  // next is used to make catchAsync
-  // 1. Get tour data from collection
+// exports.getDashboard = (req, res, next) => {
+//   // next is used to make catchAsync
+//   // 1. Get tour data from collection
+//   const books = await Book.find();
+//   // 2. Build template
+//   // 3. Render that template using book data from 1
+//   res.status(200).render('dashboard', {
+//     title: 'Dashboard',
+//     books,
+//   });
+// };
 
-  const books = await Book.find();
+exports.getDashboard = (req, res, next) => {
+  let totalDocuments;
+  const page = +req.query.page || 1; // Get page number either from query or default to 1
 
-  // 2. Build template
+  const doc_per_page = 4; // Document per page || Books per page || Products per page
 
-  // 3. Render that template using book data from 1
+  Book.find()
+    .countDocuments() // Counts the total number of document in a collection
+    .then((numDocument) => {
+      totalDocuments = numDocument;
 
-  res.status(200).render('dashboard', {
-    title: 'Dashboard',
-    books,
-  });
+      return Book.find()
+        .skip((page - 1) * doc_per_page) // Suppose u have 5 document, if u r in page one 1-1=0 and 0*5=0 so we skip 0 doc
+        .limit(doc_per_page); // Limits, limit the number of document you want to show in page
+    })
+    .then((documents) => {
+      res.status(200).render('dashboard', {
+        path: '/',
+        title: 'Dashboard',
+        books: documents,
+        currentPage: page,
+        hasNextPage: doc_per_page * page < totalDocuments,
+        /* Suppose document per page is 5 and current page is 2 and total document is 11 then in 2 page we saw 2*5=10 document
+          still 1 document remains so it returns true and hence hasNextPage exists */
+        hasPreviousPage: page > 1,
+        // 1 is the starting page if page is 2 it means it is less then page 1 so it returns true and hence hasPreviousPage exists
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalDocuments / doc_per_page), // 11/5=2.2 => 3, -5.9 => 5. It rounds a number UP to the nearest integer
+      });
+    })
+    .catch((error) => next(new AppError(error, 404)));
 };
+
+// exports.getDashboard = pagination.paginate(Book, {
+//   viewPath: 'dashboard',
+//   path: '/',
+//   title: 'Dashboard',
+// });
 
 exports.getAddBook = (req, res) => {
   res.status(200).render('addBook', {

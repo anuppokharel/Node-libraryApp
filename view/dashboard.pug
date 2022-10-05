@@ -21,7 +21,5 @@ block content
                             span Author - <i>#{book.author}</i>
                         img(src=`/img/book/${book.image}`, alt=`${book.title}`)
             
-        #prev-next 
-            button Prev 
-            button Next
+        include ./_pagination.pug
             
